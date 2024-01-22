@@ -1,18 +1,21 @@
 const lienzo = document.querySelector('#lienzo');
 const ctx = lienzo.getContext('2d');
 
-let posX = 0;
+let posX = 2;
 let posY = 1;
 let direction = 1;
 
 const bgSound = new Audio('./8-bitgame-158815.mp3');
 const eating = new Audio('./coin-collect-retro-8-bit-sound-effect-145251.mp3');
+const death = new Audio('./retro-game-sfx-explosion-104422.mp3');
 
 function init(){
 
-    posX = 0;
+    posX = 2;
     posY = 1;
     direction = 1;
+
+bgSound.play();
 
 const snake = []
 ctx.fillStyle = "black";
@@ -93,7 +96,7 @@ function checkEat(){
 }
 
 function gameOver(){
-    for(let i =1; i < snake.length; i++){
+    for(let i=1; i<snake.length;i++){
         if(snake[0].x === snake[i].x && snake[0].y === snake[i].y){
             return true;
         }
@@ -110,6 +113,12 @@ setInterval(() => {
 
     checkEat();
 
+    if(gameOver()){
+        death.play();
+        alert('perdiste');
+        snake = init();
+    }
+
     if(direction === 1) posX++;
     else if(direction === 2) posY++;
     else if(direction === 3) posX--;
@@ -124,23 +133,41 @@ setInterval(() => {
 
 }, 200);
 
-document.querySelector('container')
-    .addEventListener('click', (e) => {
-        if(e.target.classList.contains('btn')){
-            const button = e.target.innerText;
-        switch(button){
-            case 'Right':
+document.querySelector('body')
+    .addEventListener('keydown', (e) => {
+        switch(e.key){
+            case 'ArrowRight':
                 direction = 1;
                 break;
-            case 'Left':
+            case 'ArrowLeft':
                 direction = 3;
                 break;
-            case 'Down':
+            case 'ArrowDown':
                 direction = 2;
                 break;
-            case 'Up':
+            case 'AroowUp':
                 direction = 4;
                 break;
         }
-        }
+
     })
+    document.querySelector('.container')
+        .addEventListener('click',(e) => {
+            if(e.target.classList.contains('btn')){
+                const button = e.target.innerText;
+                switch(button){
+                    case 'Right':
+                        direction = 1;
+                        break;
+                    case 'Down':
+                        direction = 2;
+                        break;
+                    case 'Left':
+                        direction = 3;
+                        break;
+                    case 'Up':
+                        direction = 4;
+                        break;
+                }
+                }
+        })
