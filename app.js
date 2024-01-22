@@ -5,9 +5,9 @@ let posX = 2;
 let posY = 1;
 let direction = 1;
 
-const bgSound = new Audio('./8-bitgame-158815.mp3');
-const eating = new Audio('./coin-collect-retro-8-bit-sound-effect-145251.mp3');
-const death = new Audio('./retro-game-sfx-explosion-104422.mp3');
+const bgSound = new Audio('./Audio/8-bit-game-158815.mp3');
+const eating = new Audio('./Audio/coin-collect-retro-8-bit-sound-effect-145251.mp3');
+const death = new Audio('./Audio/retro-game-sfx-explosion-104422.mp3');
 
 function init(){
 
